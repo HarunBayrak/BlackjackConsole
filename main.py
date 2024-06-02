@@ -55,20 +55,3 @@ def el_degeri_bul(el):
 
     sonuc = [deger1, deger2]
     return deger1
-
-
-
-
-
-
-"""
-Eğer kartlar 4 ve A ise
-değer 5 ve 15tir
-A = 1 ise sonuç: 4 + 1'den 5'tir
-A = 11 ise sonuç: 4 + 11'den 15tir
-yani sonuç x ve x + 10'dur
-Fakat deger2'ye her zaman x+10 demek yanlış olabilir çünkü eğer el zaten 16 falansa as çekildiğinde sonuç 16 + 11den 27 olur bunun yerine elin patlamaması için A'yı 1 kabul etmek zorundayız
-Değer1de A'yı her zaman 1 kabul edeceğiz
-Değer2de ilk A'yı 11 sonraki A'ları 1 kabul edeceğiz (Çünkü AA yani 2 tane A her ikisinide 11 kabul edersek 22 olup patlıyor.
-O yüzden -patlamayı engellemek için- mecburen ilk A'dan sonraki tüm A'ları 1 kabul etmek zorundayız.)
-"""
