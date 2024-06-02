@@ -1,7 +1,8 @@
 import random
 
 deste = ["A", "2", "3", "4", "5", "6", "7",
-"8", "9", "10", "J", "Q", "K"]
+"8", "9", "T", "J", "Q", "K"]
+# 10'ları tek haneli olması için T olarak saklayacağız
 
 deste2 = deste*4*6
 random.shuffle(deste2)
@@ -32,7 +33,8 @@ def el_degeri_bul(el):
 
     # J Q K leri 10a çevirme
     for i in range(len(dizi_el)):
-        if dizi_el[i] == "J" or el[i] == "Q" or el[i] == "K":
+        if dizi_el[i] == "J" or el[i] == "Q" or el[i] == "K" or el[i] == "T":
+            # T 10'u temsil eden tek haneli bir karakterdir
             dizi_el[i] = "10"
 
     if "A" not in dizi_el:
@@ -51,9 +53,7 @@ def el_degeri_bul(el):
     if "A" in el and deger1 <= 21:
         deger2 = deger1 + 10
 
-    #test amaçlı eklendi daha sonra bu ↓ satırı sil 
-    print(f"Değer,{deger1} veya {deger2}")
-
+    sonuc = [deger1, deger2]
     return deger1
 
 
@@ -72,11 +72,3 @@ Değer1de A'yı her zaman 1 kabul edeceğiz
 Değer2de ilk A'yı 11 sonraki A'ları 1 kabul edeceğiz (Çünkü AA yani 2 tane A her ikisinide 11 kabul edersek 22 olup patlıyor.
 O yüzden -patlamayı engellemek için- mecburen ilk A'dan sonraki tüm A'ları 1 kabul etmek zorundayız.)
 """
-        
-        
-
-
-
-    
-
-
