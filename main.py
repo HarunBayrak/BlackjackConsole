@@ -1,42 +1,45 @@
 import random
+from typing import List
 
 # Bu fonksiyon verilen elin değerini hesaplayan "el_degeri_hesapla()" fonksiyonunun ihtiyaç duyduğu bir araçtır.
 # J Q K leri 10a çevirme
-def onlari_cevir(dizi_formatinda_el):
-    dizi_formatinda_el2 = list(dizi_formatinda_el)
+def onlari_cevir(dizi_formatinda_el: List[str]) -> List[str]:
+    dizi_formatinda_el2: List[str] = list(dizi_formatinda_el)
     for i in range(len(dizi_formatinda_el2)):
         if dizi_formatinda_el2[i] == "J" or dizi_formatinda_el2[i] == "Q" or dizi_formatinda_el2[i] == "K" or dizi_formatinda_el2[i] == "T":
             # T 10'u temsil eden tek haneli bir karakterdir
             dizi_formatinda_el2[i] = "10"
     return dizi_formatinda_el2
 
+
 # Bu fonksiyon verilen elin değerini hesaplayan "el_degeri_hesapla()" fonksiyonunun ihtiyaç duyduğu bir araçtır.
 # A'ları 1'e çevirme
-def aslari_cevir(dizi_formatinda_el):
-    dizi_formatinda_el2 = list(dizi_formatinda_el)
+def aslari_cevir(dizi_formatinda_el: List[str]) -> List[str]:
+    dizi_formatinda_el2: List[str] = list(dizi_formatinda_el)
     for i in range(len(dizi_formatinda_el2)):
         if dizi_formatinda_el2[i] == "A":
             dizi_formatinda_el2[i] = "1"
     return dizi_formatinda_el2
 
+
 # Bu fonksiyon verilen elin değerini hesaplayan "el_degeri_hesapla()" fonksiyonunun ihtiyaç duyduğu bir araçtır.
 # Bu fonksiyon sayı tabanlı kartların değerini toplar yani el değerini hesaplar 
 # Fakat A cinsi kartları sayamaz bu yüzden "el_degeri_hesapla()" fonksiyonu içerisinde kullanılması gereklidir. 
 # Böylece A'lar 1'e ve 11'e çevrilir ve artık destede harf kalmadığı için el değeri rahatça hesaplanabilir.
-def kartlarin_degerlerini_topla(dizi_formatinda_el):
-    toplam = 0
+def kartlarin_degerlerini_topla(dizi_formatinda_el: List[str]) -> int:
+    toplam: int = 0
     for i in range(len(dizi_formatinda_el)):
         toplam += int(dizi_formatinda_el[i])
     # toplama bitti sonucu döndürüyoruz
     return toplam
 
 
-def el_degeri_hesapla(el):
+def el_degeri_hesapla(el: List[str]) -> List[int]:
     #el bir list
-    deger1 = 0
-    deger2 = 0
-    dizi_el = list(el)
-    dizi_el_yedek = list(el)
+    deger1: int = 0
+    deger2: int = 0
+    dizi_el: List[str] = list(el)
+    dizi_el_yedek: List[str] = list(el)
 
 
     # J Q K leri 10a çevirme
@@ -53,7 +56,7 @@ def el_degeri_hesapla(el):
     # Durum 2: Eğer elde A varsa 
     else:
         """bu kisim ileride silinecek (başlangic)"""
-        A_11_kabul_edildi = False
+        A_11_kabul_edildi: bool = False
         # A bir kez 11 kabul edildikten sonra geri kalan tüm A'lar 1 kabul edilecek.
         
         # (Çünkü 2 tane A'nın 11 kabul edilmesi AA gibi bir elde 22 elde etmemize sebep olur onun yerine
@@ -68,9 +71,8 @@ def el_degeri_hesapla(el):
         deger2 = deger1 + 10
 
 
-    sonuc = [deger1, deger2]
+    sonuc: List[int] = [deger1, deger2]
     return sonuc
-
 
 
 def listi_stringe_donustur(verilen_list):
@@ -150,29 +152,30 @@ def fn_karar(parametre_el: list, parametre_bakiye: int, parametre_bahis: int) ->
 
 def ic_oyun_dongusu():
 
-    deste = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+    deste: List[str] = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
     # 10'ları tek haneli olması için T olarak saklayacağız
 
-    deste2 = deste*4*6
+    deste2: List[str] = deste*4*6
     random.shuffle(deste2)
     #deste artık karıştı
 
-    para = 10000
-    mevcutbahis = 0
-    sonbahis = "Henüz yapılmadı"
-    minbahis = 100
-    maxbahis = 5000
+    para: int = 10000
+    mevcutbahis: int = 0
+    sonbahis: int = 0
+    minbahis: int = 100
+    maxbahis: int = 5000
 
-    kasanin_eli = list()
-    kasanin_eldegeri = 0
+    kasanin_eli: List[str] = list()
+    kasanin_eldegeri: int = 0
     # ornek kasa eli A J
     # kasa elinin değeri 21
 
-    oyuncunun_eli = list()
-    oyuncu_eldegeri = 0
+    oyuncunun_eli: List[str] = list()
+    oyuncu_eldegeri: int = 0
     #2024-08-25
 
     mevcutbahis = int(input(f"{para} Paran var, bahis kaç tl olsun: "))
+    sonbahis = mevcutbahis
     para -= mevcutbahis
     print(f"""\
           Para: {para}
@@ -181,15 +184,18 @@ def ic_oyun_dongusu():
     # kart çekme işlemi çekilen kartı desteden silip, kartı kart çeken kişiye verir
     kasanin_eli += [deste2.pop(0)]
     kasanin_eli += [deste2.pop(0)]
-    kasanin_eldegeri = el_degeri_hesapla(kasanin_eli)
+    kasanin_eldegerleri: List[int] = el_degeri_hesapla(kasanin_eli)
     #print("kasa el değeri", kasanin_eldegeri)
 
     oyuncunun_eli += [deste2.pop(0)]
     oyuncunun_eli += [deste2.pop(0)]
-    oyuncu_eldegeri = el_degeri_hesapla(oyuncunun_eli)
-
+    oyuncu_eldegerleri: List[int]= el_degeri_hesapla(oyuncunun_eli)
+    elde_as_var: bool = False
+    as_11iken_patlama: bool = False
+    
+    # Yukarıdaki şu aslı bool değişkenleri hiç kullanmayabilirim.
     if oyuncu_eldegeri[1] == 0:
-        oyuncu_gercek_deger = oyuncu_eldegeri[0]
+        oyuncu_gercek_deger: int = oyuncu_eldegeri[0]
     else:
         if int(oyuncu_eldegeri[1]) < 22:
             oyuncu_gercek_deger = int(oyuncu_eldegeri[1])
