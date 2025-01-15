@@ -75,22 +75,22 @@ def el_degeri_hesapla(el: List[str]) -> List[int]:
     return sonuc
 
 
-def listi_stringe_donustur(verilen_list):
-    string_listesi = []
+def listi_stringe_donustur(verilen_list: List[str]) -> str:
+    string_listesi: List[str] = []
     
     # Verilen listenin üzerinde geziniyoruz
     for i in verilen_list:
         # Elemanları tek tek stringe dönüştürüyoruz
-        string_oge = str(i)
+        string_oge: str = str(i)
         string_listesi.append(string_oge)
     
     # Öğeleri ", " ile ayırıyoruz
-    sonuc = ", ".join(string_listesi)
+    sonuc: str = ", ".join(string_listesi)
     
     return sonuc
 
 
-def fn_karar(parametre_el: list, parametre_bakiye: int, parametre_bahis: int) -> None:
+def fn_karar(parametre_el: list, parametre_bakiye: int, parametre_bahis: int) -> int:
 
     # eğer split_mumkun_mu fonksiyonu False döndürüyorsa, karar metninden split seçeneği kaldırılabilir, ve ona rağmen split seçilirse split mümkün değil denebilir
     def split_mumkun_mu(parametre2_el: list, parametre2_bakiye: int, parametre2_bahis: int) -> bool:
@@ -150,12 +150,12 @@ def fn_karar(parametre_el: list, parametre_bakiye: int, parametre_bahis: int) ->
 
 
 
-def ic_oyun_dongusu():
+def ic_oyun_dongusu() -> None:
 
     deste: List[str] = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
     # 10'ları tek haneli olması için T olarak saklayacağız
 
-    deste2: List[str] = deste*4*6
+    deste2: List[str] = list(deste*4*6)
     random.shuffle(deste2)
     #deste artık karıştı
 
@@ -194,19 +194,23 @@ def ic_oyun_dongusu():
     as_11iken_patlama: bool = False
     
     # Yukarıdaki şu aslı bool değişkenleri hiç kullanmayabilirim.
-    if oyuncu_eldegeri[1] == 0:
-        oyuncu_gercek_deger: int = oyuncu_eldegeri[0]
+    if oyuncu_eldegerleri[1] == 0:
+        oyuncu_gercek_deger: int = oyuncu_eldegerleri[0]
     else:
-        if int(oyuncu_eldegeri[1]) < 22:
-            oyuncu_gercek_deger = int(oyuncu_eldegeri[1])
+        if int(oyuncu_eldegerleri[1]) < 22:
+            oyuncu_gercek_deger = int(oyuncu_eldegerleri[1])
         else:
-            oyuncu_gercek_deger = int(oyuncu_eldegeri[0])
+            oyuncu_gercek_deger = int(oyuncu_eldegerleri[0])
 
     #print("oyuncunun el değeri", oyuncu_eldegeri)
-
-    str_kasanin_eli = listi_stringe_donustur(kasanin_eli)
+    kasanin_eli_yedek: List[str] = list(kasanin_eli)
+    kasanin_eli_yedek[1] = "X"
+    str_kasanin_eli_sansursuz = listi_stringe_donustur(kasanin_eli)
+    str_kasanin_eli_sansurlu = listi_stringe_donustur(kasanin_eli_yedek)
     str_oyuncunun_eli = listi_stringe_donustur(oyuncunun_eli)
-    print(f"""Kasanın eli: {str_kasanin_eli}\
+
+    
+    print(f"""Kasanın eli: {str_kasanin_eli_sansurlu}\
           Oyuncunun eli: {str_oyuncunun_eli}\n""")
 
     str_karar = fn_karar(oyuncunun_eli, para, mevcutbahis)
@@ -277,7 +281,7 @@ elif str_karar == 4: # Stand
 
 
 
-def dis_oyun_dongusu():
+def dis_oyun_dongusu() -> None:
     while True:
         ic_oyun_dongusu()
 
