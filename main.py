@@ -235,7 +235,7 @@ def ic_oyun_dongusu() -> None:
             if oyuncunun_eldegerleri[0] > 21:
                 print("Patladınız! ", end="")
                 print("Kasanın eli:", str_kasanin_eli_sansursuz, "idi.")
-                para -= mevcutbahis
+                para -= (2 * mevcutbahis)
                 break
             else:
                 continue
@@ -284,16 +284,17 @@ def ic_oyun_dongusu() -> None:
             if kasanin_el_degeri_final > 21:
                 print("Kasa patladı, oyuncu kazandı")
                 #para artış kodu
-                para += mevcutbahis
+                para += (2 * mevcutbahis)
                 break
 
             else: # eğer kasa patlamadıysa kasa ve oyununun arasından daha büyük ele sahip olan kazanır.
                 if oyuncunun_el_degeri_final > kasanin_el_degeri_final:
-                    para += mevcutbahis
+                    print("mevcut bahis:", mevcutbahis)
+                    para += (2 * mevcutbahis)
                     print("Oyuncu kazandı!\n", "Yeni bakiye: ", para, "\n\n")
                     break
                 elif oyuncunun_el_degeri_final < kasanin_el_degeri_final:
-                    para -= mevcutbahis
+                    para -= (2 * mevcutbahis)
                     print("Kasa kazandı.\n", "Mevcut bakiye: ", para, "\n\n")
                     break
                 else:
@@ -323,8 +324,8 @@ def dis_oyun_dongusu() -> None:
 
 
 
-dis_oyun_dongusu()
-
+#dis_oyun_dongusu()
+ic_oyun_dongusu()
 
 """
 Split mümkün mü karar fonksiyonu kontrol ediyor zaten. Eğer karar fonksiyonu splitin mümkün olmadığını belirten bir değer gönderirse, split mümkün değil çıktısı gösterilmeli. Eğer Split mümkünse oyuncu için ikinci bir el oluşturulmalı. Örneğin [8, 8] olan el, [8] , [8] şeklinde ikiye bölünmeli. Daha sonra her biri için kart çekip çekmek istemediğinin soran karar fonksiyonu çağırılmalı. Splitten sonra split de mümkün örneğin 8,8 olan asıl deste 1. el: 8, 3 ve 2. el 8, 8 olarak bölünmüş olabilir bu durumda oyununcunun tekrar split çalıştırmasına izin verilmeli bu da tüm bu karar kısmını tekrar split içine koymamız gerektiğini gösteriyor örneğin:
