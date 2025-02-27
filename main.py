@@ -173,133 +173,135 @@ def ic_oyun_dongusu() -> None:
     minbahis: int = 100
     maxbahis: int = 5000
 
-    kasanin_eli: List[str] = list()
-    kasanin_eldegeri: int = 0
-    # ornek kasa eli A J
-    # kasa elinin değeri 21
-
-    oyuncunun_eli: List[str] = list()
-    oyuncu_eldegeri: int = 0
-    #2024-08-25
-
-    mevcutbahis = int(input(f"\n{para} Paranız var, bahis kaç tl olsun: "))
-    sonbahis = mevcutbahis
-    para -= mevcutbahis
-    print(f"""\
-          Para: {para}
-          Bahis: {mevcutbahis}""")
-
-    # kart çekme işlemi çekilen kartı desteden silip, kartı kart çeken kişiye verir
-    kasanin_eli += [deste2.pop(0)]
-    kasanin_eli += [deste2.pop(0)]
-    kasanin_el_degerleri: List[int] = el_degeri_hesapla(kasanin_eli)
-    #print("kasa el değeri", kasanin_eldegeri)
-
-    oyuncunun_eli += [deste2.pop(0)]
-    oyuncunun_eli += [deste2.pop(0)]
-    oyuncunun_eldegerleri: List[int]= el_degeri_hesapla(oyuncunun_eli)
-    #elde_as_var: bool = False
-    #as_11iken_patlama: bool = False
-    
-    # Yukarıdaki şu aslı bool değişkenleri hiç kullanmayabilirim.
-    if oyuncunun_eldegerleri[1] == 0:
-        oyuncu_gercek_deger: int = oyuncunun_eldegerleri[0]
-    else:
-        if int(oyuncunun_eldegerleri[1]) < 22:
-            oyuncu_gercek_deger = int(oyuncunun_eldegerleri[1])
-        else:
-            oyuncu_gercek_deger = int(oyuncunun_eldegerleri[0])
-
-    #print("oyuncunun el değeri", oyuncu_eldegeri)
-    kasanin_eli_yedek: List[str] = list(kasanin_eli)
-    kasanin_eli_yedek[1] = "X"
-    str_kasanin_eli_sansursuz = listi_stringe_donustur(kasanin_eli)
-    str_kasanin_eli_sansurlu = listi_stringe_donustur(kasanin_eli_yedek)
-    str_oyuncunun_eli = listi_stringe_donustur(oyuncunun_eli)
-
-
-
-    print(f"""Kasanın eli: {str_kasanin_eli_sansurlu}\
-          Oyuncunun eli: {str_oyuncunun_eli}""")
     while True:
-        str_karar = fn_karar(oyuncunun_eli, para, mevcutbahis)
-        print("")
-        if str_karar == 1: # Hit
-            # Hit seçildiği için "oyuncu_eli"ne kart eklenmeli
-            # oyuncu 21in üstüne çıkarsa (patlarsa) direkt kaybeder ve kasanın elini görür.
-            oyuncunun_eli += [deste2.pop(0)]
-            oyuncunun_eldegerleri: List[int]= el_degeri_hesapla(oyuncunun_eli)
-            str_oyuncunun_eli = listi_stringe_donustur(oyuncunun_eli)
-            oyuncunun_el_degeri_final: int = gercek_degeri_ver(oyuncunun_eldegerleri)
-            print("Kart çektiniz, eliniz artık:", str_oyuncunun_eli, f"({oyuncunun_el_degeri_final})")
-            if oyuncunun_eldegerleri[0] > 21:
-                print("Patladınız! ", end="")
-                print("Kasanın eli:", str_kasanin_eli_sansursuz, "idi.")
-                para -= (2 * mevcutbahis)
-                break
+        kasanin_eli: List[str] = list()
+        kasanin_eldegeri: int = 0
+        # ornek kasa eli A J
+        # kasa elinin değeri 21
+
+        oyuncunun_eli: List[str] = list()
+        oyuncu_eldegeri: int = 0
+        #2024-08-25
+        mevcutbahis = int(input(f"\n{para} Paranız var, bahis kaç tl olsun: "))
+        sonbahis = mevcutbahis
+        para -= mevcutbahis # bahis kadar paraya el koyuyoruz
+        print(f"""\
+            Para: {para}
+            Bahis: {mevcutbahis}""")
+
+        # kart çekme işlemi çekilen kartı desteden silip, kartı kart çeken kişiye verir
+        kasanin_eli += [deste2.pop(0)]
+        kasanin_eli += [deste2.pop(0)]
+        kasanin_el_degerleri: List[int] = el_degeri_hesapla(kasanin_eli)
+        #print("kasa el değeri", kasanin_eldegeri)
+
+        oyuncunun_eli += [deste2.pop(0)]
+        oyuncunun_eli += [deste2.pop(0)]
+        oyuncunun_eldegerleri: List[int]= el_degeri_hesapla(oyuncunun_eli)
+        #elde_as_var: bool = False
+        #as_11iken_patlama: bool = False
+        
+        # Yukarıdaki şu aslı bool değişkenleri hiç kullanmayabilirim.
+        if oyuncunun_eldegerleri[1] == 0:
+            oyuncu_gercek_deger: int = oyuncunun_eldegerleri[0]
+        else:
+            if int(oyuncunun_eldegerleri[1]) < 22:
+                oyuncu_gercek_deger = int(oyuncunun_eldegerleri[1])
             else:
-                continue
+                oyuncu_gercek_deger = int(oyuncunun_eldegerleri[0])
 
-        elif str_karar == 2: # Double
-            # Double seçildiği için "oyuncu_eli"ne 1 kart eklenmeli ve sanki stand seçmiş gibi davranılmalı.
-            # Sonuç gösterme kısmını hem stand'de hem de double'da tekrar kodlamaya gerek yok. O yüzden direkt stand'deki kısım çalıştırılabilir.
-            print("\nDouble daha kodlanmadı!\n")
-            continue
+        #print("oyuncunun el değeri", oyuncu_eldegeri)
+        kasanin_eli_yedek: List[str] = list(kasanin_eli)
+        kasanin_eli_yedek[1] = "X"
+        str_kasanin_eli_sansursuz = listi_stringe_donustur(kasanin_eli)
+        str_kasanin_eli_sansurlu = listi_stringe_donustur(kasanin_eli_yedek)
+        str_oyuncunun_eli = listi_stringe_donustur(oyuncunun_eli)
 
-        elif str_karar == 3: # Split
-            # Karar fonksiyonundan Split mümkün olduğunu belirten değer gelirse, deste 2'ye bölünecek ve her 2 ele de birer kart dağıtılacak, 
-            # çünkü blackjack'te oyuncu her zaman 2 kartla başlar. Yani el 2'ye bölünüp, bölünmüş kısımlara 1'er kart verilecek.
-            # Detaylı açıklamayı aşağıda bulabilirsin.
-            print("\nSplit daha kodlanmadı!\n")
-            continue
+        oyuncunun_el_degeri_final: int = gercek_degeri_ver(oyuncunun_eldegerleri)
 
-        elif str_karar == 4: # Stand
-            # Stand sonrası kart çekme durmalı ve sonuç ekranı gelmeli. Eğer kasanın eli 17den küçükse kasa 17ye kadar kart çeker.
-            # Daha sonra kimse patlamadıysa eli daha büyük olan kazanır. Eğer kasanın ve oyuncunun eli eşit ise beraberedir ve oyuncu parasını geri alır.
-            # Eğer oyuncu patladıysa oyuncu kaybeder. Zaten hit kısmında oyuncu kart çekip patlarsa yapılacakların kodu olacak.
-            # Eğer kasa patlar ise ve oyuncu patlamadıysa oyuncu kazanır.
-
-            oyuncunun_el_degeri_final: int = gercek_degeri_ver(oyuncunun_eldegerleri)
-
-            #önce kasanın 2 kartlı mevcut elini oyuncuya gösteriyoruz:
-            print("Oyuncunun eli:", str_oyuncunun_eli, "\n")
-            print("Kasanın eli:", str_kasanin_eli_sansursuz, "\n")
-            # Kasanın çekip çekmeyeceğinin kontrolü:
-
-            # Eğer kasanın eli, A kartı 11 olarak kabul edilse de, edilmese de 16dan büyükse kasanın final eli bu değerdir.
-
-            if kasanin_el_degerleri[1] > 16 or kasanin_el_degerleri[0] > 16:
-                kasanin_el_degeri_final = gercek_degeri_ver(kasanin_el_degerleri)
-            else: # yani kasanın eli 17den küçükse, kasa 16dan büyük bir el elde edene veya patlayana kadar kart çekmek zorundadır.
-                print("Kasanın eli 17den küçük, kasa kart çekmek zorunda...", "\n")
-                while kasanin_el_degerleri[0] < 17 and kasanin_el_degerleri[1] < 17:
-                    kasanin_eli += [deste2.pop(0)]
-                    kasanin_el_degerleri = el_degeri_hesapla(kasanin_eli)
-                    str_kasanin_eli_sansursuz = listi_stringe_donustur(kasanin_eli)
-                    print("Kasa kart çekti artık yeni eli:", str_kasanin_eli_sansursuz, "\n")
-                #artık döngünün dışına çıkıldığına göre kasa ya patladı ya da 17 veya üzerine üzerine çıktı
-                kasanin_el_degeri_final = gercek_degeri_ver(kasanin_el_degerleri)
-
-            # Kimin kazandığının kontrolü:
-            if kasanin_el_degeri_final > 21:
-                print("Kasa patladı, oyuncu kazandı")
-                #para artış kodu
-                para += (2 * mevcutbahis)
-                break
-
-            else: # eğer kasa patlamadıysa kasa ve oyununun arasından daha büyük ele sahip olan kazanır.
-                if oyuncunun_el_degeri_final > kasanin_el_degeri_final:
-                    print("mevcut bahis:", mevcutbahis)
-                    para += (2 * mevcutbahis)
-                    print("Oyuncu kazandı!\n", "Yeni bakiye: ", para, "\n\n")
-                    break
-                elif oyuncunun_el_degeri_final < kasanin_el_degeri_final:
-                    para -= (2 * mevcutbahis)
-                    print("Kasa kazandı.\n", "Mevcut bakiye: ", para, "\n\n")
+        print(f"""Kasanın eli: {str_kasanin_eli_sansurlu}\
+            Oyuncunun eli: {str_oyuncunun_eli} ({oyuncunun_el_degeri_final})""")
+        while True:
+            str_karar = fn_karar(oyuncunun_eli, para, mevcutbahis)
+            print("")
+            if str_karar == 1: # Hit
+                # Hit seçildiği için "oyuncu_eli"ne kart eklenmeli
+                # oyuncu 21in üstüne çıkarsa (patlarsa) direkt kaybeder ve kasanın elini görür.
+                oyuncunun_eli += [deste2.pop(0)]
+                oyuncunun_eldegerleri: List[int]= el_degeri_hesapla(oyuncunun_eli)
+                str_oyuncunun_eli = listi_stringe_donustur(oyuncunun_eli)
+                oyuncunun_el_degeri_final: int = gercek_degeri_ver(oyuncunun_eldegerleri)
+                kasanin_el_degeri_final: int = gercek_degeri_ver(kasanin_el_degerleri)
+                print("Kart çektiniz, eliniz artık:", str_oyuncunun_eli, f"({oyuncunun_el_degeri_final})")
+                if oyuncunun_eldegerleri[0] > 21:
+                    print("Patladınız! ", end="")
+                    print(f"Kasanın eli: {str_kasanin_eli_sansursuz} ({kasanin_el_degeri_final}) idi.")
+                    # bahis parasına en başta el koyulduğu için burada el kaybedildiğinde parayı eksiltmeye gerek yok
                     break
                 else:
-                    print("Berabere!")
+                    continue
+
+            elif str_karar == 2: # Double
+                # Double seçildiği için "oyuncu_eli"ne 1 kart eklenmeli ve sanki stand seçmiş gibi davranılmalı.
+                # Sonuç gösterme kısmını hem stand'de hem de double'da tekrar kodlamaya gerek yok. O yüzden direkt stand'deki kısım çalıştırılabilir.
+                print("\nDouble daha kodlanmadı!\n")
+                continue
+
+            elif str_karar == 3: # Split
+                # Karar fonksiyonundan Split mümkün olduğunu belirten değer gelirse, deste 2'ye bölünecek ve her 2 ele de birer kart dağıtılacak, 
+                # çünkü blackjack'te oyuncu her zaman 2 kartla başlar. Yani el 2'ye bölünüp, bölünmüş kısımlara 1'er kart verilecek.
+                # Detaylı açıklamayı aşağıda bulabilirsin.
+                print("\nSplit daha kodlanmadı!\n")
+                continue
+
+            elif str_karar == 4: # Stand
+                # Stand sonrası kart çekme durmalı ve sonuç ekranı gelmeli. Eğer kasanın eli 17den küçükse kasa 17ye kadar kart çeker.
+                # Daha sonra kimse patlamadıysa eli daha büyük olan kazanır. Eğer kasanın ve oyuncunun eli eşit ise beraberedir ve oyuncu parasını geri alır.
+                # Eğer oyuncu patladıysa oyuncu kaybeder. Zaten hit kısmında oyuncu kart çekip patlarsa yapılacakların kodu olacak.
+                # Eğer kasa patlar ise ve oyuncu patlamadıysa oyuncu kazanır.
+
+                oyuncunun_el_degeri_final: int = gercek_degeri_ver(oyuncunun_eldegerleri)
+                kasanin_el_degeri_final: int = gercek_degeri_ver(kasanin_el_degerleri)
+
+                #önce kasanın 2 kartlı mevcut elini oyuncuya gösteriyoruz:
+                print(f"Oyuncunun eli: {str_oyuncunun_eli} ({oyuncunun_el_degeri_final}) \n")
+                print(f"Kasanın eli: {str_kasanin_eli_sansursuz} ({kasanin_el_degeri_final}) \n")
+                # Kasanın çekip çekmeyeceğinin kontrolü:
+
+                # Eğer kasanın eli, A kartı 11 olarak kabul edilse de, edilmese de 16dan büyükse kasanın final eli bu değerdir.
+
+                if kasanin_el_degeri_final < 17: # yani kasanın eli 17den küçükse, kasa 16dan büyük bir el elde edene veya patlayana kadar kart çekmek zorundadır.
+                    print("Kasanın eli 17den küçük, kasa kart çekmek zorunda...", "\n")
+                    while kasanin_el_degerleri[0] < 17 and kasanin_el_degerleri[1] < 17:
+                        kasanin_eli += [deste2.pop(0)]
+                        kasanin_el_degerleri = el_degeri_hesapla(kasanin_eli)
+                        str_kasanin_eli_sansursuz = listi_stringe_donustur(kasanin_eli)
+                        kasanin_el_degeri_final = gercek_degeri_ver(kasanin_el_degerleri)
+                        print(f"Kasa kart çekti artık yeni eli: {str_kasanin_eli_sansursuz} ({kasanin_el_degeri_final}) \n")
+                    #artık döngünün dışına çıkıldığına göre kasa ya patladı ya da 17 veya üzerine üzerine çıktı
+                    kasanin_el_degeri_final = gercek_degeri_ver(kasanin_el_degerleri)
+
+                # Kimin kazandığının kontrolü:
+                # burayı elif yapma, burası sonuç ne olursa olsun çalışmalı
+                if kasanin_el_degeri_final > 21:
+                    print("Kasa patladı, oyuncu kazandı")
+                    #para artış kodu
+                    para += (2 * mevcutbahis)
                     break
+
+                else: # eğer kasa patlamadıysa kasa ve oyununun arasından daha büyük ele sahip olan kazanır.
+                    if oyuncunun_el_degeri_final > kasanin_el_degeri_final:
+                        print("mevcut bahis:", mevcutbahis)
+                        para += (2 * mevcutbahis)
+                        print("Oyuncu kazandı!\n", "Yeni bakiye: ", para, "\n\n")
+                        break
+                    elif oyuncunun_el_degeri_final < kasanin_el_degeri_final:
+                        # bahis parasına en başta el koyulduğu için burada el kaybedildiğinde parayı eksiltmeye gerek yok
+                        print("Kasa kazandı.\n", "Mevcut bakiye: ", para, "\n\n")
+                        break
+                    else:
+                        print("Berabere!")
+                        break
 
 
 
