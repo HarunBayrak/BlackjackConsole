@@ -300,6 +300,7 @@ def ic_oyun_dongusu() -> None:
                         print("Kasa kazandı.\n", "Mevcut bakiye: ", para, "\n\n")
                         break
                     else:
+                        para += mevcutbahis
                         print("Berabere!")
                         break
 
